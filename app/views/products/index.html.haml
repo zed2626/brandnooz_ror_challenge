@@ -11,6 +11,8 @@
       Name
     %th
       Price
+    %th
+      Tags
 
   - @products.each do |product|
     %tr
@@ -18,6 +20,8 @@
         = product.name
       %td
         = product.price
+      %td
+        = product.product_tags.pluck(:name).sort.join(', ')
       %td
         = link_to product_path(product) do
           Show

@@ -20,6 +20,15 @@
     %br
     = f.text_field :price
 
+  = f.fields_for :product_tags do |product_tags_f|
+    %p
+      = product_tags_f.label :product_tag_name
+      %br
+      = product_tags_f.text_field :name
+      - if product_tags_f.object.persisted?
+        = product_tags_f.check_box :_destroy
+        = product_tags_f.label :_destroy, 'Tick to delete'
+
   %p
     = f.submit
 

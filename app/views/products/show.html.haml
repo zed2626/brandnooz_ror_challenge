@@ -11,6 +11,14 @@
     Price:
   = @product.price
 
+- @product.product_tags.each_with_index do |product_tag, index|
+  %p
+    %strong
+      Tag
+      =succeed(':') do
+        = index + 1
+    = product_tag.name
+
 = link_to products_path do
   Back
 |
