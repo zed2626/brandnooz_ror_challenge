@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170615162738) do
+ActiveRecord::Schema.define(version: 20170616004759) do
+
+  create_table "product_tags", force: :cascade do |t|
+    t.string "name"
+    t.integer "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "product_id"], name: "index_product_tags_on_name_and_product_id", unique: true
+    t.index ["product_id"], name: "index_product_tags_on_product_id"
+  end
 
   create_table "products", force: :cascade do |t|
     t.string "name"
