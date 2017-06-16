@@ -1,0 +1,21 @@
+%h1
+  Product details
+
+%p
+  %strong
+    Name:
+  = @product.name
+
+%p
+  %strong
+    Price:
+  = @product.price
+
+= link_to products_path do
+  Back
+|
+= link_to edit_product_path do
+  Edit
+|
+= link_to product_path(@product), { method: :delete, data: { confirm: 'Are you sure?' } } do
+  Destroy
