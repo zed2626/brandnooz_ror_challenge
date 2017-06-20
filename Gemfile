@@ -45,7 +45,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'rspec'
   gem 'rspec-rails'
-  gem 'shoulda'
+  gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
   gem 'pry'
   gem 'pry-rails'
 end
