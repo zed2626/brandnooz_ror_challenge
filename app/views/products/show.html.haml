@@ -12,18 +12,55 @@
   = @product.price
 
 - @product.product_tags.each_with_index do |product_tag, index|
-  %p
-    %strong
-      Tag
-      =succeed(':') do
-        = index + 1
-    = product_tag.name
+  %table
+    %tr
+      %th
+        Tag
+        =succeed(':') do
+          = index + 1
+    %tr
+      %td
+        = product_tag.name
+      %td
+        used over all products:
+        = ProductTag.count_used_over_all_product_with_tag_name(product_tag.name)
 
-= link_to products_path do
-  Back
-|
-= link_to edit_product_path do
-  Edit
-|
-= link_to product_path(@product), { method: :delete, data: { confirm: 'Are you sure?' } } do
-  Destroy
+%br
+
+%table
+  %caption
+    %strong
+      Up to five similar products:
+  %tr
+    %th
+      Name
+    %th
+      Price
+    %th
+      Tags
+    %th
+      Similarity
+
+  - @product.five_most_similar_products.each do |product_id, similar_tags|
+    - product = Product.find(product_id)
+
+    %tr
+      %td
+        = product.name
+      %td
+        = product.price
+      %td
+        = product.product_tags.pluck(:name).sort.join(', ')
+      %td
+        =succeed('%') do
+          = '%.2f' % (similar_tags.to_f / @product.product_tags_count * 100)
+
+%p
+  = link_to products_path do
+    Back
+  |
+  = link_to edit_product_path do
+    Edit
+  |
+  = link_to product_path(@product), { method: :delete, data: { confirm: 'Are you sure?' } } do
+    Destroy
